@@ -6,7 +6,7 @@ import (
 )
 
 func TestCreateIngestPipeline(t *testing.T) {
-	host := "http://elasticsearch:9200"
+	host := "http://127.0.0.1:9200"
 	pipeline := "test"
 	username := "elastic"
 	password := "elastic"
