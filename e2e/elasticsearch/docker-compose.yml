@@ -6,7 +6,7 @@ services:
     volumes:
       - dev-elasticsearch:/usr/share/elasticsearch/data
     ports:
-      - "19200:9200"
+      - "9200:9200"
     environment:
       - discovery.type=single-node
       - ELASTIC_PASSWORD=elastic
@@ -23,7 +23,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "curl --output /dev/null --silent --head --fail -u elastic:elastic http://elasticsearch:19200",
+          "curl --output /dev/null --silent --head --fail -u elastic:elastic http://elasticsearch:9200",
         ]
       interval: 10s
       timeout: 10s
