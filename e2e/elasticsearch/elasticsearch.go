@@ -9,6 +9,35 @@ import (
 	"time"
 )
 
+func WaitElasticReady(elasticURL, username, password string, retries int, delay time.Duration) error {
+	for i := 0; i < retries; i++ {
+		req, err := http.NewRequest("GET", elasticURL, nil)
+		if err != nil {
+			return fmt.Errorf("failed to create request: %w", err)
+		}
+
+		if username != "" && password != "" {
+			req.SetBasicAuth(username, password)
+		}
+
+		client := &http.Client{}
+		resp, err := client.Do(req)
+		if err != nil {
+			time.Sleep(delay)
+			continue
+		}
+		defer resp.Body.Close()
+
+		if resp.StatusCode == http.StatusOK {
+			return nil
+		}
+
+		time.Sleep(delay)
+	}
+
+	return fmt.Errorf("elasticsearch is not ready after %d retries", retries)
+}
+
 func CreateIngestPipeline(elasticURL, pipelineID, username, password string) error {
 	url := fmt.Sprintf("%s/_ingest/pipeline/%s", elasticURL, pipelineID)
 
