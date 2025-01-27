@@ -10,13 +10,6 @@ services:
       - ELASTIC_PASSWORD=elastic
       - xpack.security.enabled=true
       - xpack.security.http.ssl.enabled=false
-      - xpack.license.self_generated.type=trial
-      - xpack.ml.use_auto_machine_memory_percent=true
-      - "_JAVA_OPTIONS=-XX:UseSVE=0"
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
     healthcheck:
       test:
         [
