@@ -6,11 +6,11 @@ import (
 )
 
 func TestCreateIngestPipeline(t *testing.T) {
-	host := "http://localhost:9200"
+	host := "http://elasticsearch:9200"
 	pipeline := "test"
 	username := "elastic"
 	password := "elastic"
-	err := WaitElasticReady(host, username, password, 10, time.Second*6)
+	err := WaitElasticReady(host, username, password, 3, time.Second*10)
 	if err != nil {
 		t.Fatal(err)
 	}
